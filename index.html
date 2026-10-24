@@ -81,26 +81,6 @@
             background: #60a5fa;
         }
 
-        /* Pulsing Dot */
-        .pulse-dot {
-            box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
-            animation: pulse 1.6s infinite;
-        }
-        @keyframes pulse {
-            0% {
-                transform: scale(0.95);
-                box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7);
-            }
-            70% {
-                transform: scale(1);
-                box-shadow: 0 0 0 8px rgba(239, 68, 68, 0);
-            }
-            100% {
-                transform: scale(0.95);
-                box-shadow: 0 0 0 0 rgba(239, 68, 68, 0);
-            }
-        }
-
         /* Minecraft Head Pixelated Rendering */
         .mc-head {
             image-rendering: pixelated;
@@ -184,68 +164,19 @@
                     Добро пожаловать <br class="hidden sm:inline"/>на сайт
                 </h1>
 
-                <!-- Server IP Copy Pills -->
+                <!-- Server IP Copy Pills (Updated with shop link & new IP) -->
                 <div class="flex flex-wrap items-center justify-center gap-3">
-                    <button onclick="copyToClipboard('shop.frikibixbox.cc')" class="flex items-center space-x-3 bg-slate-900/90 hover:bg-slate-800 border border-slate-700/80 px-4 py-2.5 rounded-2xl transition-all group">
+                    <button onclick="copyToClipboard('https://ewnec.github.io/frikibixbox/')" class="flex items-center space-x-3 bg-slate-900/90 hover:bg-slate-800 border border-slate-700/80 px-4 py-2.5 rounded-2xl transition-all group">
                         <i class="fa-solid fa-globe text-blue-400 group-hover:scale-110 transition-transform"></i>
-                        <span class="text-sm font-bold text-gray-200">shop.frikibixbox.cc</span>
+                        <span class="text-sm font-bold text-gray-200">ewnec.github.io/frikibixbox/</span>
                         <i class="fa-regular fa-copy text-xs text-gray-400 group-hover:text-white"></i>
                     </button>
 
-                    <button onclick="copyToClipboard('frikibixbox.cc')" class="flex items-center space-x-3 bg-slate-900/90 hover:bg-slate-800 border border-slate-700/80 px-4 py-2.5 rounded-2xl transition-all group">
+                    <button onclick="copyToClipboard('play.frikibix.mc')" class="flex items-center space-x-3 bg-slate-900/90 hover:bg-slate-800 border border-slate-700/80 px-4 py-2.5 rounded-2xl transition-all group">
                         <i class="fa-solid fa-server text-blue-400 group-hover:scale-110 transition-transform"></i>
-                        <span class="text-sm font-bold text-gray-200">frikibixbox.cc</span>
+                        <span class="text-sm font-bold text-gray-200">play.frikibix.mc</span>
                         <i class="fa-regular fa-copy text-xs text-gray-400 group-hover:text-white"></i>
                     </button>
-                </div>
-            </div>
-        </section>
-
-        <!-- LIVE PURCHASES TICKER BAR -->
-        <section class="max-w-7xl mx-auto px-4 my-6">
-            <div class="glass-card rounded-2xl p-3 flex items-center space-x-4 overflow-hidden border border-slate-800/80">
-                <div class="flex items-center space-x-2 px-3 py-1.5 rounded-xl bg-red-500/10 border border-red-500/20 text-red-500 font-extrabold text-xs uppercase tracking-wider shrink-0">
-                    <span class="w-2 h-2 rounded-full bg-red-500 pulse-dot"></span>
-                    <span>Live</span>
-                </div>
-
-                <!-- Ticker items horizontal scroll -->
-                <div class="flex items-center space-x-6 overflow-x-auto no-scrollbar py-1 text-xs">
-                    <div class="flex items-center space-x-2 shrink-0 bg-slate-900/60 px-3 py-1.5 rounded-xl border border-slate-800">
-                        <img src="https://mc-heads.net/avatar/Hero_Saki/24" alt="skin" class="w-6 h-6 rounded mc-head">
-                        <span class="font-bold text-gray-300">Hero***Saki</span>
-                        <span class="text-blue-400 font-semibold">50 Кристаллов</span>
-                    </div>
-
-                    <div class="flex items-center space-x-2 shrink-0 bg-slate-900/60 px-3 py-1.5 rounded-xl border border-slate-800">
-                        <img src="https://mc-heads.net/avatar/T4nlay/24" alt="skin" class="w-6 h-6 rounded mc-head">
-                        <span class="font-bold text-gray-300">T4n***lay</span>
-                        <span class="text-blue-400 font-semibold">160 Кристаллов</span>
-                    </div>
-
-                    <div class="flex items-center space-x-2 shrink-0 bg-slate-900/60 px-3 py-1.5 rounded-xl border border-slate-800">
-                        <img src="https://mc-heads.net/avatar/_p___/24" alt="skin" class="w-6 h-6 rounded mc-head">
-                        <span class="font-bold text-gray-300">_p***_</span>
-                        <span class="text-blue-400 font-semibold">25 Кристаллов</span>
-                    </div>
-
-                    <div class="flex items-center space-x-2 shrink-0 bg-slate-900/60 px-3 py-1.5 rounded-xl border border-slate-800">
-                        <img src="https://mc-heads.net/avatar/RickPro_C137/24" alt="skin" class="w-6 h-6 rounded mc-head">
-                        <span class="font-bold text-gray-300">RickPr***_C137</span>
-                        <span class="text-amber-400 font-semibold">Сет Phoenix (10 защита)</span>
-                    </div>
-
-                    <div class="flex items-center space-x-2 shrink-0 bg-slate-900/60 px-3 py-1.5 rounded-xl border border-slate-800">
-                        <img src="https://mc-heads.net/avatar/YA_CoTeJlb/24" alt="skin" class="w-6 h-6 rounded mc-head">
-                        <span class="font-bold text-gray-300">YA_Co***TeJlb</span>
-                        <span class="text-blue-400 font-semibold">50 Кристаллов</span>
-                    </div>
-
-                    <div class="flex items-center space-x-2 shrink-0 bg-slate-900/60 px-3 py-1.5 rounded-xl border border-slate-800">
-                        <img src="https://mc-heads.net/avatar/YouXXXososo/24" alt="skin" class="w-6 h-6 rounded mc-head">
-                        <span class="font-bold text-gray-300">YouXXX***ososo</span>
-                        <span class="text-blue-400 font-semibold">160 Кристаллов</span>
-                    </div>
                 </div>
             </div>
         </section>
@@ -463,8 +394,7 @@
                 skinUrl: 'https://mc-heads.net/body/Alex/120'
             },
             {
-                
-                id: 2,
+                id: 3,
                 title: 'Донат - Рубик',
                 category: 'privileges',
                 badge: '-30% НЕДЕЛЬНЫЕ СКИДКИ',
@@ -475,7 +405,7 @@
                 skinUrl: 'https://mc-heads.net/body/Alex/120'
             },
             {
-                id: 3,
+                id: 4,
                 title: 'Донат - Фрик',
                 category: 'privileges',
                 badge: '-30% НЕДЕЛЬНЫЕ СКИДКИ',
@@ -486,7 +416,7 @@
                 skinUrl: 'https://mc-heads.net/body/C418/120'
             },
             {
-                id: 4,
+                id: 5,
                 title: 'Донат - Legend',
                 category: 'privileges',
                 badge: '-30% НЕДЕЛЬНЫЕ СКИДКИ',
@@ -497,7 +427,7 @@
                 skinUrl: 'https://mc-heads.net/body/Notch/120'
             },
             {
-                id: 5,
+                id: 6,
                 title: 'Пакеты кристаллов (1000 шт)',
                 category: 'currency',
                 badge: 'ХИТ ПРОДАЖ',
@@ -508,7 +438,7 @@
                 skinUrl: 'https://mc-heads.net/body/Mebius/120'
             },
             {
-                id: 6,
+                id: 7,
                 title: 'Кейс с Донатом',
                 category: 'cases',
                 badge: 'ЛЕГЕНДАРНЫЙ',
@@ -585,7 +515,7 @@
         // Live Crystal Range Calculator
         function updateCalculator() {
             const val = document.getElementById('crystal-range').value;
-            currentCalculatedPrice = val; // 1 crystal = 1 ₴ ratio
+            currentCalculatedPrice = val;
 
             document.getElementById('slider-crystals-title').innerText = `${val} Кристаллов`;
             document.getElementById('slider-val-label').innerText = val;
@@ -594,34 +524,32 @@
             document.getElementById('btn-calc-price').innerText = `${val} ₴`;
         }
 
-        // Copy IP to Clipboard Toast
+        // Copy IP/Link to Clipboard Toast
         function copyToClipboard(text) {
-            const dummy = document.createElement("textarea");
-            document.body.appendChild(dummy);
-            dummy.value = text;
-            dummy.select();
-            document.execCommand("copy");
-            document.body.removeChild(dummy);
-
-            showToast(`Скопировано: ${text}`);
+            navigator.clipboard.writeText(text).then(() => {
+                showToast("Скопировано в буфер обмена!");
+            }).catch(err => {
+                console.error('Ошибка копирования: ', err);
+            });
         }
 
         function showToast(msg) {
             const toast = document.getElementById('toast');
-            document.getElementById('toast-message').innerText = msg;
+            const toastMsg = document.getElementById('toast-message');
+            toastMsg.innerText = msg;
             toast.classList.remove('translate-y-[-100px]', 'opacity-0');
             toast.classList.add('translate-y-0', 'opacity-100');
 
             setTimeout(() => {
                 toast.classList.remove('translate-y-0', 'opacity-100');
                 toast.classList.add('translate-y-[-100px]', 'opacity-0');
-            }, 3000);
+            }, 2500);
         }
 
-        // Modal Controls
-        function openCheckoutModal(name, price) {
-            document.getElementById('modal-product-name').innerText = name;
-            document.getElementById('modal-product-price').innerText = `${price} ₴`;
+        // Checkout Modal Functions
+        function openCheckoutModal(productName, price) {
+            document.getElementById('modal-product-name').innerText = productName;
+            document.getElementById('modal-product-price').innerText = price + ' ₴';
             document.getElementById('checkout-modal').classList.remove('hidden');
         }
 
@@ -629,32 +557,26 @@
             document.getElementById('checkout-modal').classList.add('hidden');
         }
 
-        function handlePurchaseSubmit(e) {
-            e.preventDefault();
-            const nick = document.getElementById('player-nickname').value;
+        function handlePurchaseSubmit(event) {
+            event.preventDefault();
+            const nickname = document.getElementById('player-nickname').value;
             closeCheckoutModal();
-            cartCount++;
-            document.getElementById('cart-count').innerText = cartCount;
-            showToast(`Заказ для ${nick} создан! Переход к оплате...`);
+            showToast(`Заказ для ${nickname} успешно создан!`);
         }
 
         function showPromoToast() {
-            showToast('Внимание: Промокод "NEW2026" дает скидку 10%!');
+            showToast("Введите промокод при оформлении покупки!");
         }
 
         function toggleCartDrawer() {
-            if(cartCount === 0) {
-                showToast('Ваша корзина пуста');
-            } else {
-                showToast(`В корзине ${cartCount} товаров`);
-            }
+            showToast("Корзина пуста");
         }
 
-        // Initial Load
-        document.addEventListener('DOMContentLoaded', () => {
+        // Initial render on load
+        window.onload = function() {
             renderProducts();
             updateCalculator();
-        });
+        };
     </script>
 </body>
 </html>
