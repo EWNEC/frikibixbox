@@ -278,7 +278,7 @@
 
             <main class="flex-1">
                 <div id="products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-                    <!-- Dynamic Product Cards will be injected here -->
+                    <!-- Dynamic Product Cards -->
                 </div>
             </main>
         </div>
@@ -661,7 +661,7 @@
             }, 2500);
         }
 
-        /* DONATELLO INTEGRATION WITH DYNAMIC AMOUNT */
+        /* DONATELLO DIRECT PAYMENT INTEGRATION */
         function handleCartSubmit(e) {
             e.preventDefault();
             
@@ -676,18 +676,17 @@
             const itemsList = cart.map(item => item.title).join(', ');
             const commentText = `Ник: ${nickname} | Покупка: ${itemsList}`;
 
-            // Ссылка с передачей точной суммы в гривнах на твой Donatello
-            const donatelloUrl = `https://donatello.to/frikibixbox?amount=${totalAmount}&message=${encodeURIComponent(commentText)}`;
+            // Параметры сумма и сообщение для прямой формы Donatello
+            const donatelloUrl = `https://donatello.to/frikibixbox?amount=${totalAmount}&message=${encodeURIComponent(commentText)}&sum=${totalAmount}`;
 
             window.location.href = donatelloUrl;
         }
 
-        // ЖЕЛЕЗОБЕТОННЫЙ ЗАПУСК РЕНДЕРИНГА
         window.onload = function() {
             renderProducts();
             updateCalculator();
         };
-        setTimeout(renderProducts, 50); // страховка для мгновенной отрисовки
+        setTimeout(renderProducts, 50);
     </script>
 </body>
 </html>
