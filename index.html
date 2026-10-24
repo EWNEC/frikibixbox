@@ -239,31 +239,31 @@
                 <div>
                     <h3 class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-3">Выберите категорию</h3>
                     <div class="space-y-1.5" id="category-filters">
-                        <button onclick="setCategory('all')" class="cat-filter-btn active w-full flex items-center justify-between px-4 py-3 rounded-xl text-sm font-bold bg-blue-600 text-white transition-all">
+                        <button onclick="setCategory('all')" id="cat-btn-all" class="cat-filter-btn active w-full flex items-center justify-between px-4 py-3 rounded-xl text-sm font-bold bg-blue-600 text-white transition-all">
                             <span class="flex items-center space-x-3">
                                 <i class="fa-solid fa-border-all text-xs"></i>
                                 <span>Все товары</span>
                             </span>
                         </button>
 
-                        <button onclick="setCategory('privileges')" class="cat-filter-btn w-full flex items-center justify-between px-4 py-3 rounded-xl text-sm font-semibold text-gray-400 bg-slate-900/60 hover:bg-slate-800 hover:text-white border border-slate-800 transition-all">
+                        <button onclick="setCategory('privileges')" id="cat-btn-privileges" class="cat-filter-btn w-full flex items-center justify-between px-4 py-3 rounded-xl text-sm font-semibold text-gray-400 bg-slate-900/60 hover:bg-slate-800 hover:text-white border border-slate-800 transition-all">
                             <span class="flex items-center space-x-3">
                                 <i class="fa-solid fa-crown text-xs"></i>
                                 <span>Привилегии</span>
                             </span>
                         </button>
 
-                        <button onclick="setCategory('currency')" class="cat-filter-btn w-full flex items-center justify-between px-4 py-3 rounded-xl text-sm font-semibold text-gray-400 bg-slate-900/60 hover:bg-slate-800 hover:text-white border border-slate-800 transition-all">
-                            <span class="flex items-center space-x-3">
-                                <i class="fa-solid fa-coins text-xs"></i>
-                                <span>Валюты</span>
-                            </span>
-                        </button>
-
-                        <button onclick="setCategory('cases')" class="cat-filter-btn w-full flex items-center justify-between px-4 py-3 rounded-xl text-sm font-semibold text-gray-400 bg-slate-900/60 hover:bg-slate-800 hover:text-white border border-slate-800 transition-all">
+                        <button onclick="setCategory('cases')" id="cat-btn-cases" class="cat-filter-btn w-full flex items-center justify-between px-4 py-3 rounded-xl text-sm font-semibold text-gray-400 bg-slate-900/60 hover:bg-slate-800 hover:text-white border border-slate-800 transition-all">
                             <span class="flex items-center space-x-3">
                                 <i class="fa-solid fa-box-open text-xs"></i>
                                 <span>Кейсы</span>
+                            </span>
+                        </button>
+
+                        <button onclick="setCategory('other')" id="cat-btn-other" class="cat-filter-btn w-full flex items-center justify-between px-4 py-3 rounded-xl text-sm font-semibold text-gray-400 bg-slate-900/60 hover:bg-slate-800 hover:text-white border border-slate-800 transition-all">
+                            <span class="flex items-center space-x-3">
+                                <i class="fa-solid fa-bars-staggered text-xs"></i>
+                                <span>Прочее</span>
                             </span>
                         </button>
                     </div>
@@ -281,7 +281,7 @@
             </aside>
 
             <main class="flex-1">
-                <div id="products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div id="products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
                     <!-- Dynamic Product Cards -->
                 </div>
             </main>
@@ -383,49 +383,96 @@
     <!-- JAVASCRIPT LOGIC -->
     <script>
         const products = [
+            // ПРИВИЛЕГИИ
             {
                 id: 1,
                 title: 'Сезонный - HELLOWEEN (30дн.)',
                 category: 'privileges',
                 badge: '-30% НЕДЕЛЬНЫЕ СКИДКИ',
                 details: 'BoxPvP',
-                oldPrice: '639 ₴',
-                price: 447,
+                oldPrice: '500 ₴',
+                price: 350,
                 currency: '₴',
                 skinUrl: 'https://mc-heads.net/avatar/Steve/64'
             },
             {
                 id: 2,
-                title: 'Донат - Чудак',
+                title: 'Донат - Rubik',
                 category: 'privileges',
                 badge: '-30% НЕДЕЛЬНЫЕ СКИДКИ',
                 details: 'BoxPvP',
-                oldPrice: '799 ₴',
-                price: 559,
+                oldPrice: '280 ₴',
+                price: 200,
                 currency: '₴',
                 skinUrl: 'https://mc-heads.net/avatar/Alex/64'
             },
             {
                 id: 3,
-                title: 'Донат - Рубик',
+                title: 'Донат - Cheese',
                 category: 'privileges',
                 badge: '-30% НЕДЕЛЬНЫЕ СКИДКИ',
                 details: 'BoxPvP',
-                oldPrice: '799 ₴',
-                price: 559,
+                oldPrice: '210 ₴',
+                price: 150,
                 currency: '₴',
-                skinUrl: 'https://mc-heads.net/avatar/Alex/64'
+                skinUrl: 'https://mc-heads.net/avatar/Mebius/64'
             },
+            // КЕЙСЫ
             {
                 id: 4,
-                title: 'Донат - Фрик',
-                category: 'privileges',
-                badge: '-30% НЕДЕЛЬНЫЕ СКИДКИ',
+                title: 'Донат кейс',
+                category: 'cases',
+                badge: 'ХИТ ПРОДАЖ',
                 details: 'BoxPvP',
-                oldPrice: '450 ₴',
-                price: 315,
+                oldPrice: '100 ₴',
+                price: 70,
                 currency: '₴',
                 skinUrl: 'https://mc-heads.net/avatar/C418/64'
+            },
+            {
+                id: 5,
+                title: 'Кейс с титулом',
+                category: 'cases',
+                badge: 'ПОПУЛЯРНОЕ',
+                details: 'BoxPvP',
+                oldPrice: '50 ₴',
+                price: 35,
+                currency: '₴',
+                skinUrl: 'https://mc-heads.net/avatar/Notch/64'
+            },
+            {
+                id: 6,
+                title: 'Кейс с донат валютой',
+                category: 'cases',
+                badge: 'ВЫГОДНО',
+                details: 'BoxPvP',
+                oldPrice: '80 ₴',
+                price: 55,
+                currency: '₴',
+                skinUrl: 'https://mc-heads.net/avatar/Jabami/64'
+            },
+            // ПРОЧЕЕ
+            {
+                id: 7,
+                title: 'Разбан',
+                category: 'other',
+                badge: 'УСЛУГА',
+                details: 'Снятие блокировки',
+                oldPrice: '150 ₴',
+                price: 100,
+                currency: '₴',
+                skinUrl: 'https://mc-heads.net/avatar/Hero_Saki/64'
+            },
+            {
+                id: 8,
+                title: 'Размут',
+                category: 'other',
+                badge: 'УСЛУГА',
+                details: 'Снятие ограничений чата',
+                oldPrice: '65 ₴',
+                price: 45,
+                currency: '₴',
+                skinUrl: 'https://mc-heads.net/avatar/T4nlay/64'
             }
         ];
 
@@ -450,7 +497,7 @@
                         </div>
 
                         <div class="w-full h-44 bg-gradient-to-b from-slate-900/40 to-slate-900/90 rounded-xl flex items-center justify-center my-2 p-2">
-                            <img src="https://mc-heads.net/body/${product.id === 1 ? 'Steve' : 'Alex'}/120" alt="${product.title}" class="h-36 object-contain mc-head drop-shadow-[0_10px_15px_rgba(0,0,0,0.8)]">
+                            <img src="${product.skinUrl.replace('/avatar/', '/body/').replace('/64', '/120')}" alt="${product.title}" class="h-36 object-contain mc-head drop-shadow-[0_10px_15px_rgba(0,0,0,0.8)]">
                         </div>
 
                         <div>
@@ -460,7 +507,7 @@
 
                         <div class="flex items-center justify-between border-t border-slate-800/80 pt-3 mt-auto">
                             <div>
-                                <span class="text-[11px] text-gray-500 line-through block font-medium">${product.oldPrice}</span>
+                                ${product.oldPrice ? `<span class="text-[11px] text-gray-500 line-through block font-medium">${product.oldPrice}</span>` : ''}
                                 <span class="text-sm font-black text-white">${product.price} ${product.currency}</span>
                             </div>
                             <button onclick="addToCart(${product.id})" class="bg-blue-600 hover:bg-blue-500 text-white font-extrabold text-xs px-4 py-2.5 rounded-xl transition-all shadow-md shadow-blue-600/30">
@@ -579,6 +626,19 @@
         function setCategory(cat) {
             currentCategory = cat;
             renderProducts();
+
+            // Active button highlight
+            const buttons = document.querySelectorAll('.cat-filter-btn');
+            buttons.forEach(btn => {
+                btn.classList.remove('bg-blue-600', 'text-white', 'font-bold');
+                btn.classList.add('bg-slate-900/60', 'text-gray-400', 'font-semibold');
+            });
+
+            const activeBtn = document.getElementById(`cat-btn-${cat}`);
+            if (activeBtn) {
+                activeBtn.classList.remove('bg-slate-900/60', 'text-gray-400', 'font-semibold');
+                activeBtn.classList.add('bg-blue-600', 'text-white', 'font-bold');
+            }
         }
 
         function updateCalculator() {
