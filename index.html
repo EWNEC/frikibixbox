@@ -299,7 +299,7 @@
         <span>Корзина (<span id="cart-count">0</span>)</span>
     </button>
 
-    <!-- BLUE STYLED CART MODAL (Matched from Image 2) -->
+    <!-- BLUE STYLED CART MODAL -->
     <div id="cart-modal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 hidden flex items-center justify-center p-4 overflow-y-auto">
         <div class="glass-card w-full max-w-xl rounded-3xl p-6 md:p-8 border border-slate-800 relative my-auto">
             <button onclick="closeCartModal()" class="absolute top-6 right-6 text-gray-400 hover:text-white text-xl">
@@ -608,17 +608,25 @@
             }, 2500);
         }
 
+        /* MONOBANK PAYMENT REDIRECT INTEGRATION */
         function handleCartSubmit(e) {
             e.preventDefault();
             if (cart.length === 0) {
                 showToast("Корзина пуста!");
                 return;
             }
-            const nick = document.getElementById('cart-nickname').value;
-            closeCartModal();
-            showToast(`Заказ для ${nick} оформлен!`);
-            cart = [];
-            updateCartUI();
+
+            const nickname = document.getElementById('cart-nickname').value;
+            const totalAmount = cart.reduce((sum, item) => sum + item.price, 0);
+
+            // Твоя Банка Monobank
+            const monoJarUrl = "https://send.monobank.ua/jar/49tw6JSNfV";
+
+            // Генерация комментария для Monobank с никнеймом
+            const paymentText = encodeURIComponent(`Оплата доната для игрока: ${nickname}`);
+
+            // Перенаправление покупателя на страницу оплаты в Monobank
+            window.location.href = `${monoJarUrl}?amount=${totalAmount}&text=${paymentText}`;
         }
 
         window.onload = function() {
