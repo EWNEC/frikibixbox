@@ -627,7 +627,6 @@
             currentCategory = cat;
             renderProducts();
 
-            // Active button highlight
             const buttons = document.querySelectorAll('.cat-filter-btn');
             buttons.forEach(btn => {
                 btn.classList.remove('bg-blue-600', 'text-white', 'font-bold');
@@ -668,7 +667,7 @@
             }, 2500);
         }
 
-        /* MONOBANK PAYMENT REDIRECT INTEGRATION */
+        /* NEW MONOBANK JAR PAYMENT REDIRECT INTEGRATION */
         function handleCartSubmit(e) {
             e.preventDefault();
             if (cart.length === 0) {
@@ -679,13 +678,13 @@
             const nickname = document.getElementById('cart-nickname').value;
             const totalAmount = cart.reduce((sum, item) => sum + item.price, 0);
 
-            // Твоя Банка Monobank
-            const monoJarUrl = "https://send.monobank.ua/jar/49tw6JSNfV";
+            // Твоя Новая Банка Monobank
+            const monoJarUrl = "https://send.monobank.ua/jar/6VdTMtdeNx";
 
-            // Генерация комментария для Monobank с никнеймом
+            // Комментарий к платежу для Monobank с ником
             const paymentText = encodeURIComponent(`Оплата доната для игрока: ${nickname}`);
 
-            // Перенаправление покупателя на страницу оплаты в Monobank
+            // Редирект на Monobank
             window.location.href = `${monoJarUrl}?amount=${totalAmount}&text=${paymentText}`;
         }
 
