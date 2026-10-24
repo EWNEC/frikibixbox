@@ -16,7 +16,6 @@
             user-select: none;
         }
 
-        /* Scrollbar */
         ::-webkit-scrollbar {
             width: 6px;
             height: 6px;
@@ -32,7 +31,6 @@
             background: #3b82f6;
         }
 
-        /* Glassmorphic Effects */
         .glass-card {
             background: rgba(15, 20, 31, 0.95);
             backdrop-filter: blur(12px);
@@ -48,7 +46,6 @@
             box-shadow: 0 12px 30px -10px rgba(37, 99, 235, 0.25);
         }
 
-        /* Range Slider */
         input[type=range] {
             -webkit-appearance: none;
             width: 100%;
@@ -90,7 +87,6 @@
             clip-path: polygon(0 0, 100% 0, 90% 100%, 0% 100%);
         }
 
-        /* Blue Payment Selection */
         .payment-method-card {
             transition: all 0.2s ease;
             cursor: pointer;
@@ -195,7 +191,7 @@
                     </div>
                     <div>
                         <div class="flex items-center space-x-2">
-                            <span id="slider-crystals-title" class="font-extrabold text-lg text-white">25 Кристаллов</span>
+                            <span id="slider-crystals-title" class="font-extrabold text-lg text-white">50 Кристаллов</span>
                         </div>
                         <span class="text-xs text-blue-400 font-semibold px-2 py-0.5 rounded bg-blue-500/10 border border-blue-500/20">BoxPvP</span>
                     </div>
@@ -204,11 +200,11 @@
                 <div class="w-full lg:flex-1 max-w-xl px-2">
                     <div class="flex justify-between items-center text-xs text-gray-400 mb-2 font-medium">
                         <span>Количество</span>
-                        <span id="slider-val-label" class="font-bold text-white">25</span>
+                        <span id="slider-val-label" class="font-bold text-white">50</span>
                     </div>
-                    <input type="range" id="crystal-range" min="10" max="1000" step="5" value="25" oninput="updateCalculator()">
+                    <input type="range" id="crystal-range" min="50" max="1000" step="10" value="50" oninput="updateCalculator()">
                     <div class="flex justify-between items-center text-[10px] text-gray-500 mt-1 font-semibold">
-                        <span>10</span>
+                        <span>50</span>
                         <span>500</span>
                         <span>1000</span>
                     </div>
@@ -218,16 +214,16 @@
                     <div class="flex gap-4">
                         <div class="bg-slate-900/80 px-4 py-2 rounded-xl border border-slate-800 text-center">
                             <span class="block text-[10px] text-gray-500 font-semibold uppercase">Отдаёте</span>
-                            <span id="calc-price" class="font-black text-sm text-white">25 ₴</span>
+                            <span id="calc-price" class="font-black text-sm text-white">50 ₴</span>
                         </div>
                         <div class="bg-slate-900/80 px-4 py-2 rounded-xl border border-slate-800 text-center">
                             <span class="block text-[10px] text-gray-500 font-semibold uppercase">Получаете</span>
-                            <span id="calc-crystals" class="font-black text-sm text-blue-400">25 💎</span>
+                            <span id="calc-crystals" class="font-black text-sm text-blue-400">50 💎</span>
                         </div>
                     </div>
 
                     <button onclick="addCustomCrystalsToCart()" class="bg-blue-600 hover:bg-blue-500 text-white font-extrabold px-6 py-3 rounded-xl transition-all shadow-lg shadow-blue-600/30 flex items-center space-x-2 shrink-0">
-                        <span>Приобрести — <span id="btn-calc-price">25 ₴</span></span>
+                        <span>Приобрести — <span id="btn-calc-price">50 ₴</span></span>
                     </button>
                 </div>
             </div>
@@ -337,7 +333,7 @@
                     <i class="fa-solid fa-ticket absolute right-4 top-4 text-gray-500 text-sm"></i>
                 </div>
 
-                <!-- Payment Methods: Only World & Mastercard -->
+                <!-- Payment Methods -->
                 <div class="pt-3">
                     <label class="block text-xs font-bold text-gray-300 mb-3">Выберите способ оплаты:</label>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -345,14 +341,14 @@
                             <div class="w-8 h-8 rounded-lg bg-blue-600/20 text-blue-400 flex items-center justify-center shrink-0">
                                 <i class="fa-solid fa-credit-card text-sm"></i>
                             </div>
-                            <span class="text-xs font-bold text-white leading-tight">Весь мир · Apple/Google Pay</span>
+                            <span class="text-xs font-bold text-white leading-tight">Карта / Apple Pay / Google Pay</span>
                         </div>
 
                         <div onclick="selectPayment('mc')" id="pay-mc" class="payment-method-card bg-slate-900/80 border border-slate-800 rounded-xl p-3.5 flex items-center space-x-3">
                             <div class="w-8 h-8 rounded-lg bg-indigo-600/20 text-indigo-400 flex items-center justify-center shrink-0">
                                 <i class="fa-brands fa-cc-mastercard text-base"></i>
                             </div>
-                            <span class="text-xs font-bold text-white leading-tight">Карты Mastercard</span>
+                            <span class="text-xs font-bold text-white leading-tight">Mastercard / Visa (UAH)</span>
                         </div>
                     </div>
                 </div>
@@ -365,7 +361,7 @@
                     </label>
                 </div>
 
-                <!-- Submit Button in Blue -->
+                <!-- Submit Button -->
                 <button type="submit" id="cart-submit-btn" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-extrabold py-4 rounded-xl transition-all shadow-lg shadow-blue-600/30 flex items-center justify-center space-x-2 text-sm mt-4">
                     <i class="fa-solid fa-cart-shopping text-xs"></i>
                     <span>Оплатить — <span id="cart-btn-price">0 ₴</span></span>
@@ -383,7 +379,6 @@
     <!-- JAVASCRIPT LOGIC -->
     <script>
         const products = [
-            // ПРИВИЛЕГИИ
             {
                 id: 1,
                 title: 'Сезонный - HELLOWEEN (30дн.)',
@@ -417,7 +412,6 @@
                 currency: '₴',
                 skinUrl: 'https://mc-heads.net/avatar/Mebius/64'
             },
-            // КЕЙСЫ
             {
                 id: 4,
                 title: 'Донат кейс',
@@ -436,7 +430,7 @@
                 badge: 'ПОПУЛЯРНОЕ',
                 details: 'BoxPvP',
                 oldPrice: '50 ₴',
-                price: 35,
+                price: 50,
                 currency: '₴',
                 skinUrl: 'https://mc-heads.net/avatar/Notch/64'
             },
@@ -451,7 +445,6 @@
                 currency: '₴',
                 skinUrl: 'https://mc-heads.net/avatar/Jabami/64'
             },
-            // ПРОЧЕЕ
             {
                 id: 7,
                 title: 'Разбан',
@@ -470,7 +463,7 @@
                 badge: 'УСЛУГА',
                 details: 'Снятие ограничений чата',
                 oldPrice: '65 ₴',
-                price: 45,
+                price: 50,
                 currency: '₴',
                 skinUrl: 'https://mc-heads.net/avatar/T4nlay/64'
             }
@@ -667,7 +660,7 @@
             }, 2500);
         }
 
-        /* NEW MONOBANK JAR PAYMENT REDIRECT INTEGRATION */
+        /* DONATELLO AUTOMATED CHECKOUT INTEGRATION */
         function handleCartSubmit(e) {
             e.preventDefault();
             if (cart.length === 0) {
@@ -678,14 +671,14 @@
             const nickname = document.getElementById('cart-nickname').value;
             const totalAmount = cart.reduce((sum, item) => sum + item.price, 0);
 
-            // Твоя Новая Банка Monobank
-            const monoJarUrl = "https://send.monobank.ua/jar/6VdTMtdeNx";
+            // Формируем список купленных товаров для сообщения
+            const itemsList = cart.map(item => item.title).join(', ');
+            const comment = encodeURIComponent(`Покупка: ${itemsList} | Ник: ${nickname}`);
 
-            // Комментарий к платежу для Monobank с ником
-            const paymentText = encodeURIComponent(`Оплата доната для игрока: ${nickname}`);
-
-            // Редирект на Monobank
-            window.location.href = `${monoJarUrl}?amount=${totalAmount}&text=${paymentText}`;
+            // Перенаправление на Donatello с автозаполнением суммы и сообщения
+            const donatelloUrl = `https://donatello.to/frikibixbox?amount=${totalAmount}&message=${comment}`;
+            
+            window.location.href = donatelloUrl;
         }
 
         window.onload = function() {
