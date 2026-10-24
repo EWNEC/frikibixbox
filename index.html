@@ -16,7 +16,7 @@
             user-select: none;
         }
 
-        /* Custom Scrollbar */
+        /* Scrollbar */
         ::-webkit-scrollbar {
             width: 6px;
             height: 6px;
@@ -48,7 +48,7 @@
             box-shadow: 0 12px 30px -10px rgba(37, 99, 235, 0.25);
         }
 
-        /* Custom Range Input */
+        /* Range Slider */
         input[type=range] {
             -webkit-appearance: none;
             width: 100%;
@@ -69,19 +69,18 @@
             height: 22px;
             width: 22px;
             border-radius: 50%;
-            background: #3b82f6;
+            background: #2563eb;
             cursor: pointer;
             -webkit-appearance: none;
             margin-top: -7px;
-            box-shadow: 0 0 12px rgba(59, 130, 246, 0.8);
+            box-shadow: 0 0 12px rgba(37, 99, 235, 0.8);
             transition: transform 0.1s ease;
         }
         input[type=range]::-webkit-slider-thumb:hover {
             transform: scale(1.15);
-            background: #60a5fa;
+            background: #3b82f6;
         }
 
-        /* Minecraft Head Pixelated Rendering */
         .mc-head {
             image-rendering: pixelated;
         }
@@ -91,24 +90,23 @@
             clip-path: polygon(0 0, 100% 0, 90% 100%, 0% 100%);
         }
 
-        /* Payment Method Radio Selection */
+        /* Blue Payment Selection */
         .payment-method-card {
             transition: all 0.2s ease;
             cursor: pointer;
         }
         .payment-method-card.selected {
-            border-color: #ef4444 !important;
-            background: rgba(239, 68, 68, 0.08) !important;
-            box-shadow: 0 0 15px rgba(239, 68, 68, 0.2);
+            border-color: #2563eb !important;
+            background: rgba(37, 99, 235, 0.12) !important;
+            box-shadow: 0 0 15px rgba(37, 99, 235, 0.3);
         }
     </style>
 </head>
 <body class="min-h-screen flex flex-col justify-between pb-16">
 
     <div>
-        <!-- TOP NAVIGATION HEADER -->
+        <!-- HEADER -->
         <header class="w-full max-w-7xl mx-auto px-4 py-4 flex flex-wrap items-center justify-between gap-4">
-            <!-- Logo & Title -->
             <div class="flex items-center space-x-3">
                 <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-blue-700 flex items-center justify-center text-white text-xl font-black shadow-lg shadow-blue-500/30">
                     <i class="fa-solid fa-cube"></i>
@@ -122,13 +120,11 @@
                 </div>
             </div>
 
-            <!-- Navigation Links -->
             <nav class="flex items-center bg-slate-900/80 p-1.5 rounded-xl border border-slate-800/80">
                 <a href="#" class="px-5 py-2 rounded-lg text-sm font-bold bg-blue-600 text-white shadow-md transition-all">ГЛАВНАЯ</a>
                 <a href="#store-section" class="px-5 py-2 rounded-lg text-sm font-semibold text-gray-400 hover:text-white transition-all">МАГАЗИН</a>
             </nav>
 
-            <!-- Socials & Language -->
             <div class="flex items-center space-x-3">
                 <div class="flex items-center space-x-2">
                     <a href="https://t.me" target="_blank" class="w-9 h-9 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center text-gray-400 hover:text-blue-400 hover:border-blue-500/50 transition-all">
@@ -142,7 +138,6 @@
                     </a>
                 </div>
 
-                <!-- Language Selector -->
                 <div class="flex items-center bg-slate-900 border border-slate-800 rounded-xl p-1 text-xs font-bold">
                     <button class="px-2.5 py-1 rounded-lg bg-slate-800 text-white flex items-center gap-1">
                         <span class="w-3.5 h-2.5 bg-red-600 inline-block rounded-xs"></span> RU
@@ -169,7 +164,6 @@
                     Добро пожаловать <br class="hidden sm:inline"/>на сайт
                 </h1>
 
-                <!-- Server IP & Store Pills -->
                 <div class="flex flex-wrap items-center justify-center gap-3">
                     <button onclick="copyToClipboard('https://ewnec.github.io/frikibixbox/')" class="flex items-center space-x-3 bg-slate-900/90 hover:bg-slate-800 border border-slate-700/80 px-4 py-2.5 rounded-2xl transition-all group">
                         <i class="fa-solid fa-globe text-blue-400 group-hover:scale-110 transition-transform"></i>
@@ -186,13 +180,13 @@
             </div>
         </section>
 
-        <!-- MAIN SECTION TITLE -->
+        <!-- TITLE -->
         <section id="store-section" class="max-w-7xl mx-auto px-4 mt-8 mb-4">
             <h2 class="text-2xl font-black text-white">Покупка товаров</h2>
-            <p class="text-xs text-gray-400 mt-1">Выберите нужный товар и добавляйте в корзину</p>
+            <p class="text-xs text-gray-400 mt-1">Выберите нужный товар и оплачивайте</p>
         </section>
 
-        <!-- TOP INTERACTIVE CRYSTAL CALCULATOR SLIDER -->
+        <!-- CRYSTAL CALCULATOR -->
         <section class="max-w-7xl mx-auto px-4 mb-8">
             <div class="glass-card rounded-2xl p-5 md:p-6 border border-slate-800 flex flex-col lg:flex-row items-center justify-between gap-6">
                 <div class="flex items-center space-x-4 w-full lg:w-auto">
@@ -232,14 +226,14 @@
                         </div>
                     </div>
 
-                    <button onclick="addCustomCrystalsToCart()" class="bg-red-500 hover:bg-red-600 text-white font-extrabold px-6 py-3 rounded-xl transition-all shadow-lg shadow-red-500/30 flex items-center space-x-2 shrink-0">
-                        <span>В корзину — <span id="btn-calc-price">25 ₴</span></span>
+                    <button onclick="addCustomCrystalsToCart()" class="bg-blue-600 hover:bg-blue-500 text-white font-extrabold px-6 py-3 rounded-xl transition-all shadow-lg shadow-blue-600/30 flex items-center space-x-2 shrink-0">
+                        <span>Приобрести — <span id="btn-calc-price">25 ₴</span></span>
                     </button>
                 </div>
             </div>
         </section>
 
-        <!-- MAIN LAYOUT: SIDEBAR + PRODUCT GRID -->
+        <!-- MAIN CONTENT: SIDEBAR & GRID -->
         <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row gap-8">
             <aside class="w-full md:w-64 shrink-0 space-y-6">
                 <div>
@@ -288,7 +282,7 @@
 
             <main class="flex-1">
                 <div id="products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                    <!-- Cards will be populated dynamically -->
+                    <!-- Dynamic Product Cards -->
                 </div>
             </main>
         </div>
@@ -300,57 +294,53 @@
     </footer>
 
     <!-- FLOATING CART BUTTON -->
-    <button onclick="openCartModal()" class="fixed bottom-6 right-6 z-40 px-6 py-3.5 rounded-2xl bg-red-500 hover:bg-red-600 text-white font-extrabold flex items-center space-x-3 shadow-xl shadow-red-500/30 transition-transform hover:scale-105">
+    <button onclick="openCartModal()" class="fixed bottom-6 right-6 z-40 px-6 py-3.5 rounded-2xl bg-blue-600 hover:bg-blue-500 text-white font-extrabold flex items-center space-x-3 shadow-xl shadow-blue-600/30 transition-transform hover:scale-105">
         <i class="fa-solid fa-cart-shopping text-lg"></i>
         <span>Корзина (<span id="cart-count">0</span>)</span>
     </button>
 
-    <!-- FULL DESIGNED CART MODAL -->
+    <!-- BLUE STYLED CART MODAL (Matched from Image 2) -->
     <div id="cart-modal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 hidden flex items-center justify-center p-4 overflow-y-auto">
         <div class="glass-card w-full max-w-xl rounded-3xl p-6 md:p-8 border border-slate-800 relative my-auto">
-            <!-- Close Button -->
             <button onclick="closeCartModal()" class="absolute top-6 right-6 text-gray-400 hover:text-white text-xl">
                 <i class="fa-solid fa-xmark"></i>
             </button>
 
             <h2 class="text-2xl font-black text-white mb-6">Корзина</h2>
 
-            <!-- Cart Items Container -->
-            <div id="cart-items-container" class="space-y-3 mb-4">
-                <!-- Dynamic Items Inserted Here -->
-            </div>
+            <!-- Dynamic Cart Items -->
+            <div id="cart-items-container" class="space-y-3 mb-4"></div>
 
-            <!-- Clear Cart & Total Header -->
+            <!-- Clear Cart & Total -->
             <div class="flex justify-between items-center mb-6 text-sm">
-                <button onclick="clearCart()" class="text-gray-400 hover:text-red-400 underline font-medium">Очистить корзину</button>
+                <button onclick="clearCart()" class="text-gray-400 hover:text-blue-400 underline font-medium">Очистить корзину</button>
                 <div class="text-right">
                     <span class="text-gray-400 font-semibold">Итого: </span>
-                    <span id="cart-total-price" class="text-xl font-black text-red-500">0 ₴</span>
+                    <span id="cart-total-price" class="text-xl font-black text-blue-400">0 ₴</span>
                 </div>
             </div>
 
-            <!-- Form Inputs matching screenshot -->
+            <!-- Form Inputs -->
             <form onsubmit="handleCartSubmit(event)" class="space-y-3">
                 <div class="relative">
-                    <input type="text" id="cart-nickname" required placeholder="Введите никнейм" class="w-full bg-slate-900/90 border border-slate-800 rounded-xl px-4 py-3.5 text-sm text-white focus:outline-none focus:border-red-500 pr-10">
+                    <input type="text" id="cart-nickname" required placeholder="Введите никнейм" class="w-full bg-slate-900/90 border border-slate-800 rounded-xl px-4 py-3.5 text-sm text-white focus:outline-none focus:border-blue-500 pr-10">
                     <i class="fa-regular fa-user absolute right-4 top-4 text-gray-500 text-sm"></i>
                 </div>
 
                 <div class="relative">
-                    <input type="email" id="cart-email" required placeholder="Введите почту" class="w-full bg-slate-900/90 border border-slate-800 rounded-xl px-4 py-3.5 text-sm text-white focus:outline-none focus:border-red-500 pr-10">
+                    <input type="email" id="cart-email" required placeholder="Введите почту" class="w-full bg-slate-900/90 border border-slate-800 rounded-xl px-4 py-3.5 text-sm text-white focus:outline-none focus:border-blue-500 pr-10">
                     <i class="fa-regular fa-envelope absolute right-4 top-4 text-gray-500 text-sm"></i>
                 </div>
 
                 <div class="relative">
-                    <input type="text" placeholder="Укажите купон, если есть" class="w-full bg-slate-900/90 border border-slate-800 rounded-xl px-4 py-3.5 text-sm text-white focus:outline-none focus:border-red-500 pr-10">
+                    <input type="text" placeholder="Укажите купон, если есть" class="w-full bg-slate-900/90 border border-slate-800 rounded-xl px-4 py-3.5 text-sm text-white focus:outline-none focus:border-blue-500 pr-10">
                     <i class="fa-solid fa-ticket absolute right-4 top-4 text-gray-500 text-sm"></i>
                 </div>
 
-                <!-- Payment Methods Section (Only World & Mastercard) -->
+                <!-- Payment Methods: Only World & Mastercard -->
                 <div class="pt-3">
                     <label class="block text-xs font-bold text-gray-300 mb-3">Выберите способ оплаты:</label>
                     <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                        <!-- Method 1: World / Apple / Google Pay -->
                         <div onclick="selectPayment('world')" id="pay-world" class="payment-method-card selected bg-slate-900/80 border border-slate-800 rounded-xl p-3.5 flex items-center space-x-3">
                             <div class="w-8 h-8 rounded-lg bg-blue-600/20 text-blue-400 flex items-center justify-center shrink-0">
                                 <i class="fa-solid fa-credit-card text-sm"></i>
@@ -358,7 +348,6 @@
                             <span class="text-xs font-bold text-white leading-tight">Весь мир · Apple/Google Pay</span>
                         </div>
 
-                        <!-- Method 2: Mastercard -->
                         <div onclick="selectPayment('mc')" id="pay-mc" class="payment-method-card bg-slate-900/80 border border-slate-800 rounded-xl p-3.5 flex items-center space-x-3">
                             <div class="w-8 h-8 rounded-lg bg-indigo-600/20 text-indigo-400 flex items-center justify-center shrink-0">
                                 <i class="fa-brands fa-cc-mastercard text-base"></i>
@@ -370,14 +359,14 @@
 
                 <!-- Terms Checkbox -->
                 <div class="flex items-start space-x-2 pt-2">
-                    <input type="checkbox" id="terms-check" required class="mt-1 rounded bg-slate-900 border-slate-800 text-red-500 focus:ring-0">
+                    <input type="checkbox" id="terms-check" required class="mt-1 rounded bg-slate-900 border-slate-800 text-blue-600 focus:ring-0">
                     <label for="terms-check" class="text-[11px] text-gray-400 leading-tight">
-                        Я принимаю условия <a href="#" class="text-red-400 underline">пользовательского соглашения</a>, <a href="#" class="text-red-400 underline">агентский договор</a> и <a href="#" class="text-red-400 underline">договор пожертвования</a>
+                        Я принимаю условия <a href="#" class="text-blue-400 underline">пользовательского соглашения</a>, <a href="#" class="text-blue-400 underline">агентский договор</a> и <a href="#" class="text-blue-400 underline">договор пожертвования</a>
                     </label>
                 </div>
 
-                <!-- Final Submit Button -->
-                <button type="submit" id="cart-submit-btn" class="w-full bg-red-500 hover:bg-red-600 text-white font-extrabold py-4 rounded-xl transition-all shadow-lg shadow-red-500/30 flex items-center justify-center space-x-2 text-sm mt-4">
+                <!-- Submit Button in Blue -->
+                <button type="submit" id="cart-submit-btn" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-extrabold py-4 rounded-xl transition-all shadow-lg shadow-blue-600/30 flex items-center justify-center space-x-2 text-sm mt-4">
                     <i class="fa-solid fa-cart-shopping text-xs"></i>
                     <span>Оплатить — <span id="cart-btn-price">0 ₴</span></span>
                 </button>
@@ -386,9 +375,9 @@
     </div>
 
     <!-- TOAST NOTIFICATION -->
-    <div id="toast" class="fixed top-6 right-6 z-50 bg-slate-900 border border-red-500/50 text-white px-5 py-3 rounded-2xl shadow-2xl flex items-center space-x-3 transition-all duration-300 transform translate-y-[-100px] opacity-0">
-        <i class="fa-solid fa-circle-check text-red-400 text-lg"></i>
-        <span id="toast-message" class="text-sm font-semibold">Товар добавлен в корзину!</span>
+    <div id="toast" class="fixed top-6 right-6 z-50 bg-slate-900 border border-blue-500/50 text-white px-5 py-3 rounded-2xl shadow-2xl flex items-center space-x-3 transition-all duration-300 transform translate-y-[-100px] opacity-0">
+        <i class="fa-solid fa-circle-check text-blue-400 text-lg"></i>
+        <span id="toast-message" class="text-sm font-semibold">Перемещено в корзину!</span>
     </div>
 
     <!-- JAVASCRIPT LOGIC -->
@@ -396,7 +385,7 @@
         const products = [
             {
                 id: 1,
-                title: 'Сезонный - HALLOWEEN (30дн.)',
+                title: 'Сезонный - HELLOWEEN (30дн.)',
                 category: 'privileges',
                 badge: '-30% НЕДЕЛЬНЫЕ СКИДКИ',
                 details: 'BoxPvP',
@@ -442,8 +431,6 @@
 
         let cart = [];
         let currentCategory = 'all';
-        let currentCalculatedPrice = 25;
-        let selectedPaymentMethod = 'world';
 
         function renderProducts() {
             const grid = document.getElementById('products-grid');
@@ -476,8 +463,8 @@
                                 <span class="text-[11px] text-gray-500 line-through block font-medium">${product.oldPrice}</span>
                                 <span class="text-sm font-black text-white">${product.price} ${product.currency}</span>
                             </div>
-                            <button onclick="addToCart(${product.id})" class="bg-red-500 hover:bg-red-600 text-white font-extrabold text-xs px-4 py-2.5 rounded-xl transition-all shadow-md shadow-red-500/20">
-                                В корзину
+                            <button onclick="addToCart(${product.id})" class="bg-blue-600 hover:bg-blue-500 text-white font-extrabold text-xs px-4 py-2.5 rounded-xl transition-all shadow-md shadow-blue-600/30">
+                                Купить
                             </button>
                         </div>
                     </div>
@@ -491,7 +478,7 @@
             if (item) {
                 cart.push({...item, cartItemId: Date.now()});
                 updateCartUI();
-                showToast(`"${item.title}" добавлен в корзину!`);
+                showToast("Перемещено в корзину!");
             }
         }
 
@@ -504,12 +491,11 @@
                 oldPrice: '',
                 price: parseInt(crystals),
                 currency: '₴',
-                skinUrl: 'https://mc-heads.net/avatar/Mebius/64',
-                badge: 'Кристаллы'
+                skinUrl: 'https://mc-heads.net/avatar/Mebius/64'
             };
             cart.push({...customItem, cartItemId: Date.now()});
             updateCartUI();
-            showToast(`${crystals} Кристаллов добавлено в корзину!`);
+            showToast("Перемещено в корзину!");
         }
 
         function removeFromCart(cartItemId) {
@@ -559,7 +545,7 @@
                         <div class="flex items-center space-x-4">
                             <div class="text-right">
                                 ${item.oldPrice ? `<span class="text-[10px] text-gray-500 line-through block">${item.oldPrice}</span>` : ''}
-                                <span class="text-sm font-black text-red-400">${item.price} ${item.currency}</span>
+                                <span class="text-sm font-black text-blue-400">${item.price} ${item.currency}</span>
                             </div>
                             <button onclick="removeFromCart(${item.cartItemId})" class="text-gray-500 hover:text-red-500 transition-colors">
                                 <i class="fa-regular fa-trash-can text-sm"></i>
@@ -580,7 +566,6 @@
         }
 
         function selectPayment(method) {
-            selectedPaymentMethod = method;
             document.getElementById('pay-world').classList.remove('selected');
             document.getElementById('pay-mc').classList.remove('selected');
 
@@ -598,8 +583,6 @@
 
         function updateCalculator() {
             const val = document.getElementById('crystal-range').value;
-            currentCalculatedPrice = val;
-
             document.getElementById('slider-crystals-title').innerText = `${val} Кристаллов`;
             document.getElementById('slider-val-label').innerText = val;
             document.getElementById('calc-price').innerText = `${val} ₴`;
