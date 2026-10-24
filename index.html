@@ -34,9 +34,9 @@
 
         /* Glassmorphic Effects */
         .glass-card {
-            background: rgba(15, 20, 31, 0.85);
+            background: rgba(15, 20, 31, 0.95);
             backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.08);
         }
 
         .glass-card-hover {
@@ -86,14 +86,20 @@
             image-rendering: pixelated;
         }
 
-        /* Glowing Accent Effects */
-        .glow-blue {
-            box-shadow: 0 0 25px -5px rgba(37, 99, 235, 0.4);
-        }
-
         .badge-discount {
             background: linear-gradient(135deg, #1e3a8a, #2563eb);
             clip-path: polygon(0 0, 100% 0, 90% 100%, 0% 100%);
+        }
+
+        /* Payment Method Radio Selection */
+        .payment-method-card {
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+        .payment-method-card.selected {
+            border-color: #ef4444 !important;
+            background: rgba(239, 68, 68, 0.08) !important;
+            box-shadow: 0 0 15px rgba(239, 68, 68, 0.2);
         }
     </style>
 </head>
@@ -151,7 +157,6 @@
         <!-- HERO BANNER -->
         <section class="max-w-7xl mx-auto px-4 my-4">
             <div class="relative w-full rounded-3xl overflow-hidden glass-card border border-blue-500/20 p-8 md:p-12 flex flex-col items-center justify-center text-center shadow-2xl">
-                <!-- Background Decoration Overlay -->
                 <div class="absolute inset-0 bg-gradient-to-r from-blue-900/30 via-slate-900/90 to-blue-950/30 -z-10"></div>
                 <div class="absolute top-0 right-1/4 w-96 h-96 bg-blue-600/10 rounded-full blur-3xl -z-10"></div>
                 
@@ -164,7 +169,7 @@
                     Добро пожаловать <br class="hidden sm:inline"/>на сайт
                 </h1>
 
-                <!-- Server IP Copy Pills (Updated with shop link & new IP) -->
+                <!-- Server IP & Store Pills -->
                 <div class="flex flex-wrap items-center justify-center gap-3">
                     <button onclick="copyToClipboard('https://ewnec.github.io/frikibixbox/')" class="flex items-center space-x-3 bg-slate-900/90 hover:bg-slate-800 border border-slate-700/80 px-4 py-2.5 rounded-2xl transition-all group">
                         <i class="fa-solid fa-globe text-blue-400 group-hover:scale-110 transition-transform"></i>
@@ -184,13 +189,12 @@
         <!-- MAIN SECTION TITLE -->
         <section id="store-section" class="max-w-7xl mx-auto px-4 mt-8 mb-4">
             <h2 class="text-2xl font-black text-white">Покупка товаров</h2>
-            <p class="text-xs text-gray-400 mt-1">Выберите нужный товар и оплачивайте</p>
+            <p class="text-xs text-gray-400 mt-1">Выберите нужный товар и добавляйте в корзину</p>
         </section>
 
         <!-- TOP INTERACTIVE CRYSTAL CALCULATOR SLIDER -->
         <section class="max-w-7xl mx-auto px-4 mb-8">
             <div class="glass-card rounded-2xl p-5 md:p-6 border border-slate-800 flex flex-col lg:flex-row items-center justify-between gap-6">
-                <!-- Left Details -->
                 <div class="flex items-center space-x-4 w-full lg:w-auto">
                     <div class="w-14 h-14 rounded-2xl bg-slate-900 border border-slate-800 flex items-center justify-center text-amber-400 text-2xl shrink-0 shadow-inner">
                         <i class="fa-solid fa-gem"></i>
@@ -203,7 +207,6 @@
                     </div>
                 </div>
 
-                <!-- Center Slider Control -->
                 <div class="w-full lg:flex-1 max-w-xl px-2">
                     <div class="flex justify-between items-center text-xs text-gray-400 mb-2 font-medium">
                         <span>Количество</span>
@@ -217,7 +220,6 @@
                     </div>
                 </div>
 
-                <!-- Calculated Output & Buy Button -->
                 <div class="flex items-center gap-4 w-full lg:w-auto justify-between lg:justify-end border-t lg:border-t-0 border-slate-800 pt-4 lg:pt-0">
                     <div class="flex gap-4">
                         <div class="bg-slate-900/80 px-4 py-2 rounded-xl border border-slate-800 text-center">
@@ -230,9 +232,8 @@
                         </div>
                     </div>
 
-                    <button onclick="openCheckoutModal('Кристаллы BoxPvP', currentCalculatedPrice)" class="bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-500 hover:to-blue-600 text-white font-extrabold px-6 py-3 rounded-xl transition-all shadow-lg shadow-blue-600/30 flex items-center space-x-2 shrink-0">
-                        <span>Приобрести — <span id="btn-calc-price">25 ₴</span></span>
-                        <i class="fa-solid fa-arrow-right text-xs"></i>
+                    <button onclick="addCustomCrystalsToCart()" class="bg-red-500 hover:bg-red-600 text-white font-extrabold px-6 py-3 rounded-xl transition-all shadow-lg shadow-red-500/30 flex items-center space-x-2 shrink-0">
+                        <span>В корзину — <span id="btn-calc-price">25 ₴</span></span>
                     </button>
                 </div>
             </div>
@@ -240,9 +241,7 @@
 
         <!-- MAIN LAYOUT: SIDEBAR + PRODUCT GRID -->
         <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row gap-8">
-            <!-- LEFT SIDEBAR FILTERS -->
             <aside class="w-full md:w-64 shrink-0 space-y-6">
-                <!-- Category Section -->
                 <div>
                     <h3 class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-3">Выберите категорию</h3>
                     <div class="space-y-1.5" id="category-filters">
@@ -258,7 +257,6 @@
                                 <i class="fa-solid fa-crown text-xs"></i>
                                 <span>Привилегии</span>
                             </span>
-                            <i class="fa-solid fa-check text-xs text-blue-400 opacity-0 check-icon"></i>
                         </button>
 
                         <button onclick="setCategory('currency')" class="cat-filter-btn w-full flex items-center justify-between px-4 py-3 rounded-xl text-sm font-semibold text-gray-400 bg-slate-900/60 hover:bg-slate-800 hover:text-white border border-slate-800 transition-all">
@@ -266,7 +264,6 @@
                                 <i class="fa-solid fa-coins text-xs"></i>
                                 <span>Валюты</span>
                             </span>
-                            <i class="fa-solid fa-check text-xs text-blue-400 opacity-0 check-icon"></i>
                         </button>
 
                         <button onclick="setCategory('cases')" class="cat-filter-btn w-full flex items-center justify-between px-4 py-3 rounded-xl text-sm font-semibold text-gray-400 bg-slate-900/60 hover:bg-slate-800 hover:text-white border border-slate-800 transition-all">
@@ -274,20 +271,10 @@
                                 <i class="fa-solid fa-box-open text-xs"></i>
                                 <span>Кейсы</span>
                             </span>
-                            <i class="fa-solid fa-check text-xs text-blue-400 opacity-0 check-icon"></i>
-                        </button>
-
-                        <button onclick="setCategory('items')" class="cat-filter-btn w-full flex items-center justify-between px-4 py-3 rounded-xl text-sm font-semibold text-gray-400 bg-slate-900/60 hover:bg-slate-800 hover:text-white border border-slate-800 transition-all">
-                            <span class="flex items-center space-x-3">
-                                <i class="fa-solid fa-shield-halved text-xs"></i>
-                                <span>Предметы</span>
-                            </span>
-                            <i class="fa-solid fa-check text-xs text-blue-400 opacity-0 check-icon"></i>
                         </button>
                     </div>
                 </div>
 
-                <!-- Mode Section -->
                 <div>
                     <h3 class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-3">Выберите режим</h3>
                     <div class="space-y-1.5">
@@ -295,14 +282,10 @@
                             <span>BoxPvP</span>
                             <i class="fa-solid fa-check text-xs text-blue-400"></i>
                         </button>
-                        <button class="w-full flex items-center justify-between px-4 py-3 rounded-xl text-sm font-semibold text-gray-400 bg-slate-900/60 border border-slate-800 hover:text-white">
-                            <span>Training</span>
-                        </button>
                     </div>
                 </div>
             </aside>
 
-            <!-- PRODUCTS GRID -->
             <main class="flex-1">
                 <div id="products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                     <!-- Cards will be populated dynamically -->
@@ -316,145 +299,152 @@
         <p>© 2026 frikibixBox. Все права защищены. Minecraft является торговой маркой Mojang AB.</p>
     </footer>
 
-    <!-- FLOATING BUTTONS -->
-    <!-- Gift Floating Button Left -->
-    <button onclick="showPromoToast()" class="fixed bottom-6 left-6 z-40 w-12 h-12 rounded-2xl bg-blue-600 hover:bg-blue-500 text-white flex items-center justify-center shadow-lg shadow-blue-600/40 transition-transform hover:scale-110">
-        <i class="fa-solid fa-gift text-lg"></i>
-    </button>
-
-    <!-- Cart Floating Button Right -->
-    <button onclick="toggleCartDrawer()" class="fixed bottom-6 right-6 z-40 px-5 py-3 rounded-2xl bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-500 hover:to-blue-600 text-white font-extrabold flex items-center space-x-3 shadow-xl shadow-blue-600/40 transition-transform hover:scale-105">
-        <i class="fa-solid fa-cart-shopping"></i>
+    <!-- FLOATING CART BUTTON -->
+    <button onclick="openCartModal()" class="fixed bottom-6 right-6 z-40 px-6 py-3.5 rounded-2xl bg-red-500 hover:bg-red-600 text-white font-extrabold flex items-center space-x-3 shadow-xl shadow-red-500/30 transition-transform hover:scale-105">
+        <i class="fa-solid fa-cart-shopping text-lg"></i>
         <span>Корзина (<span id="cart-count">0</span>)</span>
     </button>
 
-    <!-- CHECKOUT MODAL -->
-    <div id="checkout-modal" class="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-        <div class="glass-card w-full max-w-md rounded-3xl p-6 border border-slate-800 relative">
-            <button onclick="closeCheckoutModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-lg">
+    <!-- FULL DESIGNED CART MODAL -->
+    <div id="cart-modal" class="fixed inset-0 bg-black/85 backdrop-blur-md z-50 hidden flex items-center justify-center p-4 overflow-y-auto">
+        <div class="glass-card w-full max-w-xl rounded-3xl p-6 md:p-8 border border-slate-800 relative my-auto">
+            <!-- Close Button -->
+            <button onclick="closeCartModal()" class="absolute top-6 right-6 text-gray-400 hover:text-white text-xl">
                 <i class="fa-solid fa-xmark"></i>
             </button>
 
-            <h3 class="text-xl font-black text-white mb-1">Оформление покупки</h3>
-            <p id="modal-product-name" class="text-sm font-bold text-blue-400 mb-6">Донат - CRYSTAL</p>
+            <h2 class="text-2xl font-black text-white mb-6">Корзина</h2>
 
-            <form onsubmit="handlePurchaseSubmit(event)" class="space-y-4">
-                <div>
-                    <label class="block text-xs font-bold text-gray-400 uppercase mb-2">Ваш игровой никнейм</label>
-                    <input type="text" id="player-nickname" required placeholder="Введите ник в Minecraft" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-blue-500 transition-colors">
+            <!-- Cart Items Container -->
+            <div id="cart-items-container" class="space-y-3 mb-4">
+                <!-- Dynamic Items Inserted Here -->
+            </div>
+
+            <!-- Clear Cart & Total Header -->
+            <div class="flex justify-between items-center mb-6 text-sm">
+                <button onclick="clearCart()" class="text-gray-400 hover:text-red-400 underline font-medium">Очистить корзину</button>
+                <div class="text-right">
+                    <span class="text-gray-400 font-semibold">Итого: </span>
+                    <span id="cart-total-price" class="text-xl font-black text-red-500">0 ₴</span>
+                </div>
+            </div>
+
+            <!-- Form Inputs matching screenshot -->
+            <form onsubmit="handleCartSubmit(event)" class="space-y-3">
+                <div class="relative">
+                    <input type="text" id="cart-nickname" required placeholder="Введите никнейм" class="w-full bg-slate-900/90 border border-slate-800 rounded-xl px-4 py-3.5 text-sm text-white focus:outline-none focus:border-red-500 pr-10">
+                    <i class="fa-regular fa-user absolute right-4 top-4 text-gray-500 text-sm"></i>
                 </div>
 
-                <div>
-                    <label class="block text-xs font-bold text-gray-400 uppercase mb-2">Промокод (если есть)</label>
-                    <input type="text" placeholder="PROMO2026" class="w-full bg-slate-900 border border-slate-800 rounded-xl px-4 py-3 text-sm text-white focus:outline-none focus:border-blue-500 transition-colors">
+                <div class="relative">
+                    <input type="email" id="cart-email" required placeholder="Введите почту" class="w-full bg-slate-900/90 border border-slate-800 rounded-xl px-4 py-3.5 text-sm text-white focus:outline-none focus:border-red-500 pr-10">
+                    <i class="fa-regular fa-envelope absolute right-4 top-4 text-gray-500 text-sm"></i>
                 </div>
 
-                <div class="bg-slate-900/80 p-4 rounded-xl border border-slate-800 flex justify-between items-center">
-                    <span class="text-sm font-semibold text-gray-400">Итого к оплате:</span>
-                    <span id="modal-product-price" class="text-lg font-black text-white">315 ₴</span>
+                <div class="relative">
+                    <input type="text" placeholder="Укажите купон, если есть" class="w-full bg-slate-900/90 border border-slate-800 rounded-xl px-4 py-3.5 text-sm text-white focus:outline-none focus:border-red-500 pr-10">
+                    <i class="fa-solid fa-ticket absolute right-4 top-4 text-gray-500 text-sm"></i>
                 </div>
 
-                <button type="submit" class="w-full bg-blue-600 hover:bg-blue-500 text-white font-extrabold py-3.5 rounded-xl transition-all shadow-lg shadow-blue-600/30">
-                    Перейти к оплате
+                <!-- Payment Methods Section (Only World & Mastercard) -->
+                <div class="pt-3">
+                    <label class="block text-xs font-bold text-gray-300 mb-3">Выберите способ оплаты:</label>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                        <!-- Method 1: World / Apple / Google Pay -->
+                        <div onclick="selectPayment('world')" id="pay-world" class="payment-method-card selected bg-slate-900/80 border border-slate-800 rounded-xl p-3.5 flex items-center space-x-3">
+                            <div class="w-8 h-8 rounded-lg bg-blue-600/20 text-blue-400 flex items-center justify-center shrink-0">
+                                <i class="fa-solid fa-credit-card text-sm"></i>
+                            </div>
+                            <span class="text-xs font-bold text-white leading-tight">Весь мир · Apple/Google Pay</span>
+                        </div>
+
+                        <!-- Method 2: Mastercard -->
+                        <div onclick="selectPayment('mc')" id="pay-mc" class="payment-method-card bg-slate-900/80 border border-slate-800 rounded-xl p-3.5 flex items-center space-x-3">
+                            <div class="w-8 h-8 rounded-lg bg-indigo-600/20 text-indigo-400 flex items-center justify-center shrink-0">
+                                <i class="fa-brands fa-cc-mastercard text-base"></i>
+                            </div>
+                            <span class="text-xs font-bold text-white leading-tight">Карты Mastercard</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Terms Checkbox -->
+                <div class="flex items-start space-x-2 pt-2">
+                    <input type="checkbox" id="terms-check" required class="mt-1 rounded bg-slate-900 border-slate-800 text-red-500 focus:ring-0">
+                    <label for="terms-check" class="text-[11px] text-gray-400 leading-tight">
+                        Я принимаю условия <a href="#" class="text-red-400 underline">пользовательского соглашения</a>, <a href="#" class="text-red-400 underline">агентский договор</a> и <a href="#" class="text-red-400 underline">договор пожертвования</a>
+                    </label>
+                </div>
+
+                <!-- Final Submit Button -->
+                <button type="submit" id="cart-submit-btn" class="w-full bg-red-500 hover:bg-red-600 text-white font-extrabold py-4 rounded-xl transition-all shadow-lg shadow-red-500/30 flex items-center justify-center space-x-2 text-sm mt-4">
+                    <i class="fa-solid fa-cart-shopping text-xs"></i>
+                    <span>Оплатить — <span id="cart-btn-price">0 ₴</span></span>
                 </button>
             </form>
         </div>
     </div>
 
     <!-- TOAST NOTIFICATION -->
-    <div id="toast" class="fixed top-6 right-6 z-50 bg-slate-900 border border-blue-500/50 text-white px-5 py-3 rounded-2xl shadow-2xl flex items-center space-x-3 transition-all duration-300 transform translate-y-[-100px] opacity-0">
-        <i class="fa-solid fa-circle-check text-blue-400 text-lg"></i>
-        <span id="toast-message" class="text-sm font-semibold">IP скопирован в буфер!</span>
+    <div id="toast" class="fixed top-6 right-6 z-50 bg-slate-900 border border-red-500/50 text-white px-5 py-3 rounded-2xl shadow-2xl flex items-center space-x-3 transition-all duration-300 transform translate-y-[-100px] opacity-0">
+        <i class="fa-solid fa-circle-check text-red-400 text-lg"></i>
+        <span id="toast-message" class="text-sm font-semibold">Товар добавлен в корзину!</span>
     </div>
 
     <!-- JAVASCRIPT LOGIC -->
     <script>
-        // Sample Product Data matching screenshots
         const products = [
             {
                 id: 1,
-                title: 'Сезонный донат - HALLOWEEN',
+                title: 'Сезонный - HALLOWEEN (30дн.)',
                 category: 'privileges',
                 badge: '-30% НЕДЕЛЬНЫЕ СКИДКИ',
-                details: '2 предмета',
-                oldPrice: '638 ₴',
+                details: 'BoxPvP',
+                oldPrice: '639 ₴',
                 price: 447,
                 currency: '₴',
-                skinUrl: 'https://mc-heads.net/body/Steve/120'
+                skinUrl: 'https://mc-heads.net/avatar/Steve/64'
             },
             {
                 id: 2,
                 title: 'Донат - Чудак',
                 category: 'privileges',
                 badge: '-30% НЕДЕЛЬНЫЕ СКИДКИ',
-                details: '2 предмета',
+                details: 'BoxPvP',
                 oldPrice: '799 ₴',
                 price: 559,
                 currency: '₴',
-                skinUrl: 'https://mc-heads.net/body/Alex/120'
+                skinUrl: 'https://mc-heads.net/avatar/Alex/64'
             },
             {
                 id: 3,
                 title: 'Донат - Рубик',
                 category: 'privileges',
                 badge: '-30% НЕДЕЛЬНЫЕ СКИДКИ',
-                details: '2 предмета',
+                details: 'BoxPvP',
                 oldPrice: '799 ₴',
                 price: 559,
                 currency: '₴',
-                skinUrl: 'https://mc-heads.net/body/Alex/120'
+                skinUrl: 'https://mc-heads.net/avatar/Alex/64'
             },
             {
                 id: 4,
                 title: 'Донат - Фрик',
                 category: 'privileges',
                 badge: '-30% НЕДЕЛЬНЫЕ СКИДКИ',
-                details: '2 предмета',
+                details: 'BoxPvP',
                 oldPrice: '450 ₴',
                 price: 315,
                 currency: '₴',
-                skinUrl: 'https://mc-heads.net/body/C418/120'
-            },
-            {
-                id: 5,
-                title: 'Донат - Legend',
-                category: 'privileges',
-                badge: '-30% НЕДЕЛЬНЫЕ СКИДКИ',
-                details: '2 предмета',
-                oldPrice: '150 ₴',
-                price: 105,
-                currency: '₴',
-                skinUrl: 'https://mc-heads.net/body/Notch/120'
-            },
-            {
-                id: 6,
-                title: 'Пакеты кристаллов (1000 шт)',
-                category: 'currency',
-                badge: 'ХИТ ПРОДАЖ',
-                details: 'Быстрое зачисление',
-                oldPrice: '1200 ₴',
-                price: 850,
-                currency: '₴',
-                skinUrl: 'https://mc-heads.net/body/Mebius/120'
-            },
-            {
-                id: 7,
-                title: 'Кейс с Донатом',
-                category: 'cases',
-                badge: 'ЛЕГЕНДАРНЫЙ',
-                details: 'Шанс на CUSTOM',
-                oldPrice: '200 ₴',
-                price: 120,
-                currency: '₴',
-                skinUrl: 'https://mc-heads.net/body/Jabami/120'
+                skinUrl: 'https://mc-heads.net/avatar/C418/64'
             }
         ];
 
+        let cart = [];
         let currentCategory = 'all';
         let currentCalculatedPrice = 25;
-        let cartCount = 0;
+        let selectedPaymentMethod = 'world';
 
-        // Render Product Cards
         function renderProducts() {
             const grid = document.getElementById('products-grid');
             grid.innerHTML = '';
@@ -466,32 +456,28 @@
             filtered.forEach(product => {
                 const cardHtml = `
                     <div class="glass-card glass-card-hover rounded-2xl p-4 flex flex-col justify-between border border-slate-800/80 relative">
-                        <!-- Top Badge -->
                         <div class="flex justify-between items-start mb-2">
                             <span class="badge-discount text-[10px] font-black tracking-wider text-white px-2.5 py-1 rounded-r-md uppercase shadow-sm">
                                 ${product.badge}
                             </span>
                         </div>
 
-                        <!-- Product Skin Art Preview -->
                         <div class="w-full h-44 bg-gradient-to-b from-slate-900/40 to-slate-900/90 rounded-xl flex items-center justify-center my-2 p-2">
-                            <img src="${product.skinUrl}" alt="${product.title}" class="h-36 object-contain mc-head drop-shadow-[0_10px_15px_rgba(0,0,0,0.8)]">
+                            <img src="https://mc-heads.net/body/${product.id === 1 ? 'Steve' : 'Alex'}/120" alt="${product.title}" class="h-36 object-contain mc-head drop-shadow-[0_10px_15px_rgba(0,0,0,0.8)]">
                         </div>
 
-                        <!-- Details & Title -->
                         <div>
                             <h3 class="font-extrabold text-base text-white leading-snug mb-1">${product.title}</h3>
                             <p class="text-xs text-gray-400 font-medium mb-4">${product.details}</p>
                         </div>
 
-                        <!-- Footer Pricing & Button -->
                         <div class="flex items-center justify-between border-t border-slate-800/80 pt-3 mt-auto">
                             <div>
                                 <span class="text-[11px] text-gray-500 line-through block font-medium">${product.oldPrice}</span>
-                                <span class="text-sm font-black text-white">от ${product.price} ${product.currency}</span>
+                                <span class="text-sm font-black text-white">${product.price} ${product.currency}</span>
                             </div>
-                            <button onclick="openCheckoutModal('${product.title}', ${product.price})" class="bg-blue-600 hover:bg-blue-500 text-white font-extrabold text-xs px-4 py-2.5 rounded-xl transition-all shadow-md shadow-blue-600/30">
-                                Купить
+                            <button onclick="addToCart(${product.id})" class="bg-red-500 hover:bg-red-600 text-white font-extrabold text-xs px-4 py-2.5 rounded-xl transition-all shadow-md shadow-red-500/20">
+                                В корзину
                             </button>
                         </div>
                     </div>
@@ -500,19 +486,116 @@
             });
         }
 
-        // Category Filter Logic
-        function setCategory(cat) {
-            currentCategory = cat;
-            renderProducts();
+        function addToCart(productId) {
+            const item = products.find(p => p.id === productId);
+            if (item) {
+                cart.push({...item, cartItemId: Date.now()});
+                updateCartUI();
+                showToast(`"${item.title}" добавлен в корзину!`);
+            }
+        }
 
-            const buttons = document.querySelectorAll('.cat-filter-btn');
-            buttons.forEach(btn => {
-                btn.classList.remove('bg-blue-600', 'text-white', 'active');
-                btn.classList.add('bg-slate-900/60', 'text-gray-400');
+        function addCustomCrystalsToCart() {
+            const crystals = document.getElementById('crystal-range').value;
+            const customItem = {
+                id: Date.now(),
+                title: `${crystals} Кристаллов`,
+                details: 'BoxPvP',
+                oldPrice: '',
+                price: parseInt(crystals),
+                currency: '₴',
+                skinUrl: 'https://mc-heads.net/avatar/Mebius/64',
+                badge: 'Кристаллы'
+            };
+            cart.push({...customItem, cartItemId: Date.now()});
+            updateCartUI();
+            showToast(`${crystals} Кристаллов добавлено в корзину!`);
+        }
+
+        function removeFromCart(cartItemId) {
+            cart = cart.filter(item => item.cartItemId !== cartItemId);
+            updateCartUI();
+            renderCartModalItems();
+        }
+
+        function clearCart() {
+            cart = [];
+            updateCartUI();
+            renderCartModalItems();
+            showToast("Корзина очищена!");
+        }
+
+        function updateCartUI() {
+            document.getElementById('cart-count').innerText = cart.length;
+            const total = cart.reduce((sum, item) => sum + item.price, 0);
+            document.getElementById('cart-total-price').innerText = total + ' ₴';
+            document.getElementById('cart-btn-price').innerText = total + ' ₴';
+        }
+
+        function renderCartModalItems() {
+            const container = document.getElementById('cart-items-container');
+            if (cart.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-8 text-gray-500">
+                        <i class="fa-solid fa-cart-flatbed text-3xl mb-2"></i>
+                        <p class="text-sm font-semibold">Ваша корзина пуста</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = '';
+            cart.forEach(item => {
+                container.innerHTML += `
+                    <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-3.5 flex items-center justify-between">
+                        <div class="flex items-center space-x-3">
+                            <img src="${item.skinUrl}" alt="skin" class="w-10 h-10 rounded-xl mc-head bg-slate-800 border border-slate-700">
+                            <div>
+                                <h4 class="text-sm font-extrabold text-white">${item.title}</h4>
+                                <span class="text-xs text-gray-400">${item.details}</span>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center space-x-4">
+                            <div class="text-right">
+                                ${item.oldPrice ? `<span class="text-[10px] text-gray-500 line-through block">${item.oldPrice}</span>` : ''}
+                                <span class="text-sm font-black text-red-400">${item.price} ${item.currency}</span>
+                            </div>
+                            <button onclick="removeFromCart(${item.cartItemId})" class="text-gray-500 hover:text-red-500 transition-colors">
+                                <i class="fa-regular fa-trash-can text-sm"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
             });
         }
 
-        // Live Crystal Range Calculator
+        function openCartModal() {
+            renderCartModalItems();
+            document.getElementById('cart-modal').classList.remove('hidden');
+        }
+
+        function closeCartModal() {
+            document.getElementById('cart-modal').classList.add('hidden');
+        }
+
+        function selectPayment(method) {
+            selectedPaymentMethod = method;
+            document.getElementById('pay-world').classList.remove('selected');
+            document.getElementById('pay-mc').classList.remove('selected');
+
+            if (method === 'world') {
+                document.getElementById('pay-world').classList.add('selected');
+            } else {
+                document.getElementById('pay-mc').classList.add('selected');
+            }
+        }
+
+        function setCategory(cat) {
+            currentCategory = cat;
+            renderProducts();
+        }
+
         function updateCalculator() {
             const val = document.getElementById('crystal-range').value;
             currentCalculatedPrice = val;
@@ -524,19 +607,15 @@
             document.getElementById('btn-calc-price').innerText = `${val} ₴`;
         }
 
-        // Copy IP/Link to Clipboard Toast
         function copyToClipboard(text) {
             navigator.clipboard.writeText(text).then(() => {
                 showToast("Скопировано в буфер обмена!");
-            }).catch(err => {
-                console.error('Ошибка копирования: ', err);
             });
         }
 
         function showToast(msg) {
             const toast = document.getElementById('toast');
-            const toastMsg = document.getElementById('toast-message');
-            toastMsg.innerText = msg;
+            document.getElementById('toast-message').innerText = msg;
             toast.classList.remove('translate-y-[-100px]', 'opacity-0');
             toast.classList.add('translate-y-0', 'opacity-100');
 
@@ -546,33 +625,19 @@
             }, 2500);
         }
 
-        // Checkout Modal Functions
-        function openCheckoutModal(productName, price) {
-            document.getElementById('modal-product-name').innerText = productName;
-            document.getElementById('modal-product-price').innerText = price + ' ₴';
-            document.getElementById('checkout-modal').classList.remove('hidden');
+        function handleCartSubmit(e) {
+            e.preventDefault();
+            if (cart.length === 0) {
+                showToast("Корзина пуста!");
+                return;
+            }
+            const nick = document.getElementById('cart-nickname').value;
+            closeCartModal();
+            showToast(`Заказ для ${nick} оформлен!`);
+            cart = [];
+            updateCartUI();
         }
 
-        function closeCheckoutModal() {
-            document.getElementById('checkout-modal').classList.add('hidden');
-        }
-
-        function handlePurchaseSubmit(event) {
-            event.preventDefault();
-            const nickname = document.getElementById('player-nickname').value;
-            closeCheckoutModal();
-            showToast(`Заказ для ${nickname} успешно создан!`);
-        }
-
-        function showPromoToast() {
-            showToast("Введите промокод при оформлении покупки!");
-        }
-
-        function toggleCartDrawer() {
-            showToast("Корзина пуста");
-        }
-
-        // Initial render on load
         window.onload = function() {
             renderProducts();
             updateCalculator();
