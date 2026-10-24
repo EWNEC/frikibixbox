@@ -416,3 +416,209 @@
                 id: 4,
                 title: 'Донат кейс',
                 category: 'cases',
+                badge: 'ХИТ ПРОДАЖ',
+                details: 'BoxPvP',
+                oldPrice: '100 ₴',
+                price: 70,
+                currency: '₴',
+                skinUrl: 'https://mc-heads.net/avatar/C418/64'
+            },
+            {
+                id: 5,
+                title: 'Кейс с титулом',
+                category: 'cases',
+                badge: 'ПОПУЛЯРНОЕ',
+                details: 'BoxPvP',
+                oldPrice: '50 ₴',
+                price: 50,
+                currency: '₴',
+                skinUrl: 'https://mc-heads.net/avatar/Notch/64'
+            },
+            {
+                id: 6,
+                title: 'Кейс с донат валютой',
+                category: 'cases',
+                badge: 'ВЫГОДНО',
+                details: 'BoxPvP',
+                oldPrice: '80 ₴',
+                price: 55,
+                currency: '₴',
+                skinUrl: 'https://mc-heads.net/avatar/Jabami/64'
+            },
+            {
+                id: 7,
+                title: 'Разбан',
+                category: 'other',
+                badge: 'УСЛУГА',
+                details: 'Снятие блокировки',
+                oldPrice: '150 ₴',
+                price: 100,
+                currency: '₴',
+                skinUrl: 'https://mc-heads.net/avatar/Hero_Saki/64'
+            },
+            {
+                id: 8,
+                title: 'Размут',
+                category: 'other',
+                badge: 'УСЛУГА',
+                details: 'Снятие ограничений чата',
+                oldPrice: '65 ₴',
+                price: 50,
+                currency: '₴',
+                skinUrl: 'https://mc-heads.net/avatar/T4nlay/64'
+            }
+        ];
+
+        let cart = [];
+        let currentCategory = 'all';
+
+        function renderProducts() {
+            const grid = document.getElementById('products-grid');
+            if (!grid) return;
+            grid.innerHTML = '';
+
+            const filtered = currentCategory === 'all' 
+                ? products 
+                : products.filter(p => p.category === currentCategory);
+
+            filtered.forEach(product => {
+                const cardHtml = `
+                    <div class="glass-card glass-card-hover rounded-2xl p-4 flex flex-col justify-between border border-slate-800/80 relative">
+                        <div class="flex justify-between items-start mb-2">
+                            <span class="badge-discount text-[10px] font-black tracking-wider text-white px-2.5 py-1 rounded-r-md uppercase shadow-sm">
+                                ${product.badge}
+                            </span>
+                        </div>
+
+                        <div class="w-full h-44 bg-gradient-to-b from-slate-900/40 to-slate-900/90 rounded-xl flex items-center justify-center my-2 p-2">
+                            <img src="${product.skinUrl}" alt="${product.title}" class="h-28 object-contain mc-head drop-shadow-[0_10px_15px_rgba(0,0,0,0.8)]">
+                        </div>
+
+                        <div>
+                            <h3 class="font-extrabold text-base text-white leading-snug mb-1">${product.title}</h3>
+                            <p class="text-xs text-gray-400 font-medium mb-4">${product.details}</p>
+                        </div>
+
+                        <div class="flex items-center justify-between border-t border-slate-800/80 pt-3 mt-auto">
+                            <div>
+                                ${product.oldPrice ? `<span class="text-[11px] text-gray-500 line-through block font-medium">${product.oldPrice}</span>` : ''}
+                                <span class="text-sm font-black text-white">${product.price} ${product.currency}</span>
+                            </div>
+                            <button onclick="addToCart(${product.id})" class="bg-blue-600 hover:bg-blue-500 text-white font-extrabold text-xs px-4 py-2.5 rounded-xl transition-all shadow-md shadow-blue-600/30">
+                                Купить
+                            </button>
+                        </div>
+                    </div>
+                `;
+                grid.innerHTML += cardHtml;
+            });
+        }
+
+        function addToCart(productId) {
+            const item = products.find(p => p.id === productId);
+            if (item) {
+                cart.push({...item, cartItemId: Date.now()});
+                updateCartUI();
+                showToast("Перемещено в корзину!");
+            }
+        }
+
+        function addCustomCrystalsToCart() {
+            const crystals = document.getElementById('crystal-range').value;
+            const customItem = {
+                id: Date.now(),
+                title: `${crystals} Кристаллов`,
+                details: 'BoxPvP',
+                oldPrice: '',
+                price: parseInt(crystals),
+                currency: '₴',
+                skinUrl: 'https://mc-heads.net/avatar/Mebius/64'
+            };
+            cart.push({...customItem, cartItemId: Date.now()});
+            updateCartUI();
+            showToast("Перемещено в корзину!");
+        }
+
+        function removeFromCart(cartItemId) {
+            cart = cart.filter(item => item.cartItemId !== cartItemId);
+            updateCartUI();
+            renderCartModalItems();
+        }
+
+        function clearCart() {
+            cart = [];
+            updateCartUI();
+            renderCartModalItems();
+            showToast("Корзина очищена!");
+        }
+
+        function updateCartUI() {
+            document.getElementById('cart-count').innerText = cart.length;
+            const total = cart.reduce((sum, item) => sum + item.price, 0);
+            document.getElementById('cart-total-price').innerText = total + ' ₴';
+            document.getElementById('cart-btn-price').innerText = total + ' ₴';
+        }
+
+        function renderCartModalItems() {
+            const container = document.getElementById('cart-items-container');
+            if (cart.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-8 text-gray-500">
+                        <i class="fa-solid fa-cart-flatbed text-3xl mb-2"></i>
+                        <p class="text-sm font-semibold">Ваша корзина пуста</p>
+                    </div>
+                `;
+                return;
+            }
+
+            container.innerHTML = '';
+            cart.forEach(item => {
+                container.innerHTML += `
+                    <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-3.5 flex items-center justify-between">
+                        <div class="flex items-center space-x-3">
+                            <img src="${item.skinUrl}" alt="skin" class="w-10 h-10 rounded-xl mc-head bg-slate-800 border border-slate-700">
+                            <div>
+                                <h4 class="text-sm font-extrabold text-white">${item.title}</h4>
+                                <span class="text-xs text-gray-400">${item.details}</span>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center space-x-4">
+                            <div class="text-right">
+                                ${item.oldPrice ? `<span class="text-[10px] text-gray-500 line-through block">${item.oldPrice}</span>` : ''}
+                                <span class="text-sm font-black text-blue-400">${item.price} ${item.currency}</span>
+                            </div>
+                            <button onclick="removeFromCart(${item.cartItemId})" class="text-gray-500 hover:text-red-500 transition-colors">
+                                <i class="fa-regular fa-trash-can text-sm"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        function openCartModal() {
+            renderCartModalItems();
+            document.getElementById('cart-modal').classList.remove('hidden');
+        }
+
+        function closeCartModal() {
+            document.getElementById('cart-modal').classList.add('hidden');
+        }
+
+        function selectPayment(method) {
+            document.getElementById('pay-world').classList.remove('selected');
+            document.getElementById('pay-mc').classList.remove('selected');
+
+            if (method === 'world') {
+                document.getElementById('pay-world').classList.add('selected');
+            } else {
+                document.getElementById('pay-mc').classList.add('selected');
+            }
+        }
+
+        function setCategory(cat) {
+            currentCategory = cat;
+            renderProducts();
+
+            const buttons = document.querySelectorAll('.
