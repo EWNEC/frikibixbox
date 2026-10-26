@@ -6,6 +6,8 @@
     <title>frikibixBox — Официальный магазин БоксПВП</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Подключаем CryptoJS для генерации HMAC-MD5 подписи WayForPay -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
         
@@ -167,9 +169,9 @@
                         <i class="fa-regular fa-copy text-xs text-gray-400 group-hover:text-white"></i>
                     </button>
 
-                    <button onclick="copyToClipboard('play.frikibix.mc')" class="flex items-center space-x-3 bg-slate-900/90 hover:bg-slate-800 border border-slate-700/80 px-4 py-2.5 rounded-2xl transition-all group">
+                    <button onclick="copyToClipboard('primebox.aurorix.pro')" class="flex items-center space-x-3 bg-slate-900/90 hover:bg-slate-800 border border-slate-700/80 px-4 py-2.5 rounded-2xl transition-all group">
                         <i class="fa-solid fa-server text-blue-400 group-hover:scale-110 transition-transform"></i>
-                        <span class="text-sm font-bold text-gray-200">play.frikibix.mc</span>
+                        <span class="text-sm font-bold text-gray-200">primebox.aurorix.pro</span>
                         <i class="fa-regular fa-copy text-xs text-gray-400 group-hover:text-white"></i>
                     </button>
                 </div>
@@ -381,39 +383,61 @@
         const products = [
             {
                 id: 1,
-                title: 'Сезонный -  (30дн.)',
+                title: 'Донат - Warrior',
                 category: 'privileges',
-                badge: '-30% НЕДЕЛЬНЫЕ СКИДКИ',
-                details: 'BoxPvP',
-                oldPrice: '500 ₴',
-                price: 350,
+                badge: 'СТАРТОВЫЙ',
+                details: 'BoxPvP (30дн.)',
+                oldPrice: '35 ₴',
+                price: 25,
                 currency: '₴',
                 skinUrl: 'https://mc-heads.net/avatar/Steve/64'
             },
             {
                 id: 2,
-                title: 'Донат - Rubik',
+                title: 'Донат - Master',
                 category: 'privileges',
-                badge: '-30% НЕДЕЛЬНЫЕ СКИДКИ',
-                details: 'BoxPvP',
-                oldPrice: '280 ₴',
-                price: 200,
+                badge: 'ПОПУЛЯРНОЕ',
+                details: 'BoxPvP (30дн.)',
+                oldPrice: '90 ₴',
+                price: 65,
                 currency: '₴',
                 skinUrl: 'https://mc-heads.net/avatar/Alex/64'
             },
             {
                 id: 3,
-                title: 'Донат - Cheese',
+                title: 'Донат - Elite',
                 category: 'privileges',
-                badge: '-30% НЕДЕЛЬНЫЕ СКИДКИ',
-                details: 'BoxPvP',
-                oldPrice: '210 ₴',
-                price: 150,
+                badge: 'ХИТ ПРОДАЖ',
+                details: 'BoxPvP (30дн.)',
+                oldPrice: '180 ₴',
+                price: 135,
                 currency: '₴',
                 skinUrl: 'https://mc-heads.net/avatar/Mebius/64'
             },
             {
                 id: 4,
+                title: 'Донат - Phantom',
+                category: 'privileges',
+                badge: 'ТОП ВЫБОР',
+                details: 'BoxPvP (30дн.)',
+                oldPrice: '320 ₴',
+                price: 250,
+                currency: '₴',
+                skinUrl: 'https://mc-heads.net/avatar/Notch/64'
+            },
+            {
+                id: 5,
+                title: 'Донат - Custom',
+                category: 'privileges',
+                badge: 'МАКСИМУМ',
+                details: 'BoxPvP (Навсегда)',
+                oldPrice: '850 ₴',
+                price: 680,
+                currency: '₴',
+                skinUrl: 'https://mc-heads.net/avatar/Hero_Saki/64'
+            },
+            {
+                id: 6,
                 title: 'Донат кейс',
                 category: 'cases',
                 badge: 'ХИТ ПРОДАЖ',
@@ -424,7 +448,7 @@
                 skinUrl: 'https://mc-heads.net/avatar/C418/64'
             },
             {
-                id: 5,
+                id: 7,
                 title: 'Кейс с титулом',
                 category: 'cases',
                 badge: 'ПОПУЛЯРНОЕ',
@@ -435,7 +459,7 @@
                 skinUrl: 'https://mc-heads.net/avatar/Notch/64'
             },
             {
-                id: 6,
+                id: 8,
                 title: 'Кейс с донат валютой',
                 category: 'cases',
                 badge: 'ВЫГОДНО',
@@ -446,7 +470,7 @@
                 skinUrl: 'https://mc-heads.net/avatar/Jabami/64'
             },
             {
-                id: 7,
+                id: 9,
                 title: 'Разбан',
                 category: 'other',
                 badge: 'УСЛУГА',
@@ -457,7 +481,7 @@
                 skinUrl: 'https://mc-heads.net/avatar/Hero_Saki/64'
             },
             {
-                id: 8,
+                id: 10,
                 title: 'Размут',
                 category: 'other',
                 badge: 'УСЛУГА',
@@ -553,140 +577,4 @@
         }
 
         function updateCartUI() {
-            document.getElementById('cart-count').innerText = cart.length;
-            const total = cart.reduce((sum, item) => sum + item.price, 0);
-            document.getElementById('cart-total-price').innerText = total + ' ₴';
-            document.getElementById('cart-btn-price').innerText = total + ' ₴';
-        }
-
-        function renderCartModalItems() {
-            const container = document.getElementById('cart-items-container');
-            if (cart.length === 0) {
-                container.innerHTML = `
-                    <div class="text-center py-8 text-gray-500">
-                        <i class="fa-solid fa-cart-flatbed text-3xl mb-2"></i>
-                        <p class="text-sm font-semibold">Ваша корзина пуста</p>
-                    </div>
-                `;
-                return;
-            }
-
-            container.innerHTML = '';
-            cart.forEach(item => {
-                container.innerHTML += `
-                    <div class="bg-slate-900/90 border border-slate-800 rounded-2xl p-3.5 flex items-center justify-between">
-                        <div class="flex items-center space-x-3">
-                            <img src="${item.skinUrl}" alt="skin" class="w-10 h-10 rounded-xl mc-head bg-slate-800 border border-slate-700">
-                            <div>
-                                <h4 class="text-sm font-extrabold text-white">${item.title}</h4>
-                                <span class="text-xs text-gray-400">${item.details}</span>
-                            </div>
-                        </div>
-
-                        <div class="flex items-center space-x-4">
-                            <div class="text-right">
-                                ${item.oldPrice ? `<span class="text-[10px] text-gray-500 line-through block">${item.oldPrice}</span>` : ''}
-                                <span class="text-sm font-black text-blue-400">${item.price} ${item.currency}</span>
-                            </div>
-                            <button onclick="removeFromCart(${item.cartItemId})" class="text-gray-500 hover:text-red-500 transition-colors">
-                                <i class="fa-regular fa-trash-can text-sm"></i>
-                            </button>
-                        </div>
-                    </div>
-                `;
-            });
-        }
-
-        function openCartModal() {
-            renderCartModalItems();
-            document.getElementById('cart-modal').classList.remove('hidden');
-        }
-
-        function closeCartModal() {
-            document.getElementById('cart-modal').classList.add('hidden');
-        }
-
-        function selectPayment(method) {
-            document.getElementById('pay-world').classList.remove('selected');
-            document.getElementById('pay-mc').classList.remove('selected');
-
-            if (method === 'world') {
-                document.getElementById('pay-world').classList.add('selected');
-            } else {
-                document.getElementById('pay-mc').classList.add('selected');
-            }
-        }
-
-        function setCategory(cat) {
-            currentCategory = cat;
-            renderProducts();
-
-            const buttons = document.querySelectorAll('.cat-filter-btn');
-            buttons.forEach(btn => {
-                btn.classList.remove('bg-blue-600', 'text-white', 'font-bold');
-                btn.classList.add('bg-slate-900/60', 'text-gray-400', 'font-semibold');
-            });
-
-            const activeBtn = document.getElementById(`cat-btn-${cat}`);
-            if (activeBtn) {
-                activeBtn.classList.remove('bg-slate-900/60', 'text-gray-400', 'font-semibold');
-                activeBtn.classList.add('bg-blue-600', 'text-white', 'font-bold');
-            }
-        }
-
-        function updateCalculator() {
-            const val = document.getElementById('crystal-range').value;
-            document.getElementById('slider-crystals-title').innerText = `${val} Кристаллов`;
-            document.getElementById('slider-val-label').innerText = val;
-            document.getElementById('calc-price').innerText = `${val} ₴`;
-            document.getElementById('calc-crystals').innerText = `${val} 💎`;
-            document.getElementById('btn-calc-price').innerText = `${val} ₴`;
-        }
-
-        function copyToClipboard(text) {
-            navigator.clipboard.writeText(text).then(() => {
-                showToast("Скопировано в буфер обмена!");
-            });
-        }
-
-        function showToast(msg) {
-            const toast = document.getElementById('toast');
-            document.getElementById('toast-message').innerText = msg;
-            toast.classList.remove('translate-y-[-100px]', 'opacity-0');
-            toast.classList.add('translate-y-0', 'opacity-100');
-
-            setTimeout(() => {
-                toast.classList.remove('translate-y-0', 'opacity-100');
-                toast.classList.add('translate-y-[-100px]', 'opacity-0');
-            }, 2500);
-        }
-
-        /* DONATELLO DIRECT PAYMENT INTEGRATION */
-        function handleCartSubmit(e) {
-            e.preventDefault();
-            
-            if (cart.length === 0) {
-                showToast("Корзина пуста!");
-                return;
-            }
-
-            const nickname = document.getElementById('cart-nickname').value.trim();
-            const totalAmount = cart.reduce((sum, item) => sum + item.price, 0);
-
-            const itemsList = cart.map(item => item.title).join(', ');
-            const commentText = `Ник: ${nickname} | Покупка: ${itemsList}`;
-
-            // Параметры сумма и сообщение для прямой формы Donatello
-            const donatelloUrl = `https://donatello.to/frikibixbox?amount=${totalAmount}&message=${encodeURIComponent(commentText)}&sum=${totalAmount}`;
-
-            window.location.href = donatelloUrl;
-        }
-
-        window.onload = function() {
-            renderProducts();
-            updateCalculator();
-        };
-        setTimeout(renderProducts, 50);
-    </script>
-</body>
-</html>
+            document.getElementById
